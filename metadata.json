@@ -1,0 +1,6 @@
+{
+  "name": "汇成指数实盘模拟系统",
+  "description": "支持客户上传历史调仓流水，自动模拟逐日持仓市值、仓位变化、盈亏及组合收益，并与股票、折价债券等经典基准指数进行绩效对比、风险归因与AI深度诊断。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
