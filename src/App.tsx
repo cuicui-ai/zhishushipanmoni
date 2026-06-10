@@ -23,6 +23,7 @@ import { simulatePortfolio, calculateRiskIndicators, calculateMonthlyReturns, co
 import { Header } from "./components/Header";
 import { MyPortfoliosView } from "./components/MyPortfoliosView";
 import { CreatePortfolioView } from "./components/CreatePortfolioView";
+import { AdvancedAnalysisView } from "./components/AdvancedAnalysisView";
 
 interface CustomContributionTooltipProps {
   active?: boolean;
@@ -99,7 +100,7 @@ export default function App() {
   const [showTradingTargetsDropdown, setShowTradingTargetsDropdown] = useState(false);
   
   // Tab states
-  const [activeTab, setActiveTab ] = useState<"report" | "positions">("report");
+  const [activeTab, setActiveTab ] = useState<"report" | "positions" | "advanced">("report");
   
   // Creation Form States (Image 2 representation)
   const [newName, setNewName] = useState("");
@@ -1188,6 +1189,17 @@ export default function App() {
                 <PieChartIcon className="w-3.5 h-3.5" />
                 最新模拟持仓 明细表
               </button>
+              <button
+                onClick={() => setActiveTab("advanced")}
+                className={`px-4 py-2.5 font-bold text-xs rounded-lg transition duration-200 flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === "advanced"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-600 hover:text-slate-800"
+                }`}
+              >
+                <Settings className="w-3.5 h-3.5" />
+                高级持仓诊断与分析 ⚙️
+              </button>
             </div>
 
             {/* TAB CONTENT SPANS BELOW */}
@@ -1866,6 +1878,39 @@ export default function App() {
                       </div>
                     </div>
                   </div>
+                </div>
+              )}
+
+              {activeTab === "advanced" && (
+                <div className="animate-fade-in text-slate-800">
+                  <AdvancedAnalysisView 
+                    activePortfolio={activePortfolio}
+                    portfolios={portfolios}
+                    setPortfolios={setPortfolios}
+                    simulationRows={simulationRows}
+                    riskMetrics={riskMetrics}
+                    monthlyMetrics={monthlyMetrics}
+                    dates={dates}
+                    lastRebalancingWeights={lastRebalancingWeights}
+                    supportedIndices={SUPPORTED_INDICES}
+                    rebalDateInput={rebalDateInput}
+                    setRebalDateInput={setRebalDateInput}
+                    editingWeights={editingWeights}
+                    setEditingWeights={setEditingWeights}
+                    editingWeightsSum={editingWeightsSum}
+                    rebalError={rebalError}
+                    setRebalError={setRebalError}
+                    csvPasteContent={csvPasteContent}
+                    setCsvPasteContent={setCsvPasteContent}
+                    handleWeightSlider={handleWeightSlider}
+                    handleSaveManualRebalance={handleSaveManualRebalance}
+                    parseAndImportCSVText={parseAndImportCSVText}
+                    loadDemoFromImage1={loadDemoFromImage1}
+                    handleDragOver={handleDragOver}
+                    handleDrop={handleDrop}
+                    fileInputRef={fileInputRef}
+                    currentMarketValue={currentMarketValue}
+                  />
                 </div>
               )}
 
